@@ -4,7 +4,7 @@
 #' @param .var The variable to compute features on.
 #' @rdname features_smpspl
 #' @exportS3Method fabletools::features
-features.smpspl_grid <-
+features.smpspl_boot <-
     function(.tbl, .var, features, ...) {
         if (!rlang::is_installed("fabletools")) {
             rlang::abort("Suggested package `fabletools` is not installed.")
@@ -21,26 +21,25 @@ features.smpspl_grid <-
         if (!rlang::is_installed("tibble")) {
             rlang::abort("Suggested package `tibble` is not installed.")
         }
-        .var <- rlang::enquo(.var)
+        if (!rlang::is_installed("tsibble")) {
+            rlang::abort("Suggested package `tsibble` is not installed.")
+        }
+        boot_id <- rlang::sym("boot_id")
+        .resid <- rlang::sym(.resid)
+        .var <- NULL # rlang::enquo(.var) ## unused
+        idx <- tsibble::index(.tbl)
         .tbl |>
-            dplyr::mutate(
-                .assessment = purrr::map(
-                    !!.var,
-                    ~ .x |>
-                        dplyr::mutate(
-                            .features = purrr::map(
-                                .subresid,
-                                function(.) {
-                                    . |>
-                                        fabletools::features(
-                                            .var = .resid,
-                                            features = features
-                                        )
-                                }
-                            )
-                        ) |>
-                        dplyr::select(-.subresid)
+            tsibble::as_tibble() |>
+            dplyr::group_by(boot_id) |>
+            dplyr::group_split() |>
+            purrr::map(
+                ~ fabletools::features(
+                    tsibble::as_tsibble(.x, index = idx),
+                    .resid,
+                    features = features
                 )
             ) |>
-            tibble::new_tibble(class = "smpspl_nested_features")
+            purrr::list_rbind(names_to = "boot_id") |>
+            dplyr::mutate(boot_id = factor(boot_id)) |>
+            tibble::new_tibble(class = "smpspl_boot_features")
     }
