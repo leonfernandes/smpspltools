@@ -32,6 +32,7 @@ extract_model.Arima <-
         class(ret) <- "arima"
         ret
     }
+
 ## tidymodels ----
 #' @rdname extract_model
 #' @export
@@ -47,7 +48,8 @@ extract_model.workflow <-
 #' @rdname extract_model
 #' @export
 extract_model.Arima_fit_impl <-
-    function(object, ...) extract_model(object$models$model_1, ...)
+    # manually use .Arima method
+    function(object, ...) extract_model.Arima(object$models$model_1, ...)
 
 ## fable ----
 #' @rdname extract_model
