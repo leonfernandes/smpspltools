@@ -25,7 +25,7 @@ features.smpspl_boot <-
             rlang::abort("Suggested package `tsibble` is not installed.")
         }
         boot_id <- rlang::sym("boot_id")
-        .resid <- rlang::sym(.resid)
+        .resid <- rlang::sym(".resid")
         .var <- NULL # rlang::enquo(.var) ## unused
         idx <- tsibble::index(.tbl)
         .tbl |>
