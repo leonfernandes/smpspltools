@@ -5,5 +5,5 @@
 #' @export
 is_smpspl_reg <-
     function(object, ...) {
-        (!inherits(object, "arima") && !inherits(object, "garch"))
+        (inherits(object, "arima") || inherits(object, "garch"))
     }
