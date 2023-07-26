@@ -16,9 +16,12 @@ smpspl_list <-
             }
         ret <-
             model_list |>
-            purrr::map(my_fun) |>
+            purrr::map(my_fun)
+        ret_class <- class(ret[[1]])
+        ret <-
+            ret |>
             purrr::list_rbind(names_to = "model_id") |>
             dplyr::mutate(model_id = factor(model_id)) |>
-            tibble::new_tibble(class = "smpspl_table")
+            tibble::new_tibble(class = c("smpspl_list", ret_class))
         return(ret)
     }
