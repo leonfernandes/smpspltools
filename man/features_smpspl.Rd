@@ -6,9 +6,9 @@
 \alias{features.smpspl_grid}
 \title{Features for sample splitting}
 \usage{
-features.smpspl_boot(.tbl, .var, features, ...)
+\method{features}{smpspl_boot}(.tbl, .var, features, ...)
 
-features.smpspl_grid(.tbl, .var, features, ...)
+\method{features}{smpspl_grid}(.tbl, .var, features, ...)
 }
 \arguments{
 \item{.tbl}{A dataset}

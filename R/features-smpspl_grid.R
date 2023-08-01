@@ -3,7 +3,7 @@
 #' @inheritParams fabletools::features
 #' @param .var The variable to compute features on.
 #' @rdname features_smpspl
-#' @exportS3Method fabletools::features
+#' @export
 features.smpspl_grid <-
     function(.tbl, .var, features, ...) {
         if (!rlang::is_installed("fabletools")) {
