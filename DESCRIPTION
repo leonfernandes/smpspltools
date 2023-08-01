@@ -1,6 +1,6 @@
 Package: smpspltools
 Title: Tools for smpspl Package
-Version: 0.0.1.9006
+Version: 0.0.1.9007
 Authors@R: 
     person(
         "Leon", "Fernandes", , "leon.fernandes@columbia.edu",
@@ -35,5 +35,6 @@ Imports:
     fabletools (>= 0.3.3),
     glue (>= 1.6.2),
     rlang (>= 1.1.1),
+    stabledist (>= 0.7.1),
     stringr (>= 1.5.0),
     tune (>= 1.1.1)
