@@ -33,7 +33,7 @@ innov_rademacher <- function(nsim) sample(c(-1, 1), nsim, TRUE)
 
 innov_normal <-
     function(nsim, mu = 0, sigma = 1) {
-        stats::rnorm(nsim, mean = mu, sigma = sd)
+        stats::rnorm(nsim, mean = mu, sd = sigma)
     }
 
 innov_t <- function(nsim, df) stats::rt(nsim, df)
