@@ -3,7 +3,6 @@
 #' @inheritParams fabletools::features
 #' @param .var The variable to compute features on.
 #' @rdname features_smpspl
-#' @importFrom fabletools features
 #' @export
 features.smpspl_boot <-
     function(.tbl, .var, features, ...) {
