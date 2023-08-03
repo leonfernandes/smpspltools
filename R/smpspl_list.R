@@ -16,7 +16,7 @@ smpspl_list <-
             }
         ret <-
             model_list |>
-            purrr::map(~ list(my_fun(.x)))
+            purrr::map(~ tibble::tibble(fun = my_fun(.x)))
         ret <-
             ret |>
             purrr::list_rbind(names_to = "model_id") |>
