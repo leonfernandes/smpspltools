@@ -63,14 +63,29 @@ features_grid_impl <-
         if (!rlang::is_installed("tibble")) {
             rlang::abort("Suggested package `tibble` is not installed.")
         }
+        steps <-
+            .tbl |>
+            dplyr::pull(!!.var_nest2) |>
+            purrr::map_int(vctrs::vec_size) |>
+            sum()
+        steps <- vctrs::vec_size(.tbl) * steps
+        p <- progressr::progressor(steps = steps)
         if (rlang::is_quosure(.var)) {
-            fn <- \(.x) fabletools::features(
-                .x, .var = !!.var, features = features
-            )
+            fn <-
+                \(.x) {
+                    p()
+                    fabletools::features(
+                    .x, .var = !!.var, features = features
+                    )
+                }
         } else if (rlang::is_quosures(.var)) {
-           fn <- \(.x) fabletools::features(
-               .x, .vars = !!.var, features = features
-           )
+           fn <-
+                \(.x) {
+                    p()
+                    fabletools::features(
+                    .x, .vars = !!.var, features = features
+                    )
+                }
         }
         .tbl |>
             dplyr::mutate(

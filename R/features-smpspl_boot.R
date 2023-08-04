@@ -26,18 +26,24 @@ features.smpspl_boot <-
         }
         boot_id <- rlang::sym("boot_id")
         .resid <- rlang::sym(".resid")
-        .var <- NULL # rlang::enquo(.var) ## unused
         idx <- tsibble::index(.tbl)
-        .tbl |>
+        data_list <-
+            .tbl |>
             tsibble::as_tibble() |>
             dplyr::group_by(boot_id) |>
-            dplyr::group_split() |>
+            dplyr::group_split()
+        num_boots <- length(data_list)
+        p <- progressr::progressor(steps = num_boots)
+        data_list |>
             purrr::map(
-                ~ fabletools::features(
-                    tsibble::as_tsibble(.x, index = idx),
-                    .resid,
-                    features = features
-                )
+                \(.x) {
+                    p()
+                    fabletools::features(
+                        tsibble::as_tsibble(.x, index = idx),
+                        .var,
+                        features = features
+                    )
+                }
             ) |>
             purrr::list_rbind(names_to = "boot_id") |>
             dplyr::mutate(boot_id = factor(boot_id)) |>

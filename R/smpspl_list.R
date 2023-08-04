@@ -10,13 +10,15 @@ smpspl_list <-
     function(model_list, fun, ...) {
         model_id <- rlang::sym("model_id")
         dot_args <- list(...)
+        p <- progressr::progressor(along = model_list)
         my_fun <-
             function(.x) {
+                p()
                 do.call(fun, append(list(object = .x), dot_args))
             }
         ret <-
             model_list |>
-            purrr::map(~ tibble::tibble(fun = my_fun(.x)))
+            furrr::future_map(~ tibble::tibble(fun = my_fun(.x)))
         ret <-
             ret |>
             purrr::list_rbind(names_to = "model_id") |>
