@@ -7,8 +7,28 @@
 #' of `.tbl`.
 #' @importFrom fabletools features
 #' @importFrom rlang `:=`
-#' @rdname features_smpspl
 #' @export
+#' @returns An `smpspl_grid_features` object.
+#' @examples
+#' library(fable)
+#' library(smpspl)
+#' data <-
+#'     tsibble::tsibble(x = rnorm(100), date = Sys.Date() + 0:99, index = date)
+#' # Consider an AR(1) model
+#' o <-
+#'     ARIMA(x ~ pdq(1, 0, 0) + PDQ(0, 0, 0)) |>
+#'     smpspl_grid(data, 2, 2)
+#'
+#' # Calculate lanyard features
+#' my_acf <-
+#'     function(x) {
+#'         data.frame(t = x, e = 0) |>
+#'             lanyard::acf_metric(t, e) |>
+#'             generics::tidy()
+#'     }
+#'
+#' o |>
+#'     features(.resid, .subresid, .assessment, features = my_acf)
 features.smpspl_grid <-
     function(.tbl, .var, .var_nest1, .var_nest2, features, ...) {
         .var <- rlang::enquo(.var)
@@ -26,11 +46,11 @@ features.smpspl_grid <-
 
 #' Features for sample splitting
 #'
-#' @inheritParams fabletools::features_at
+#' @inheritParams features.smpspl_grid
 #' @param .vars The variables to compute features on.
 #' @importFrom fabletools features_at
-#' @rdname features_smpspl
 #' @export
+#' @returns An `smpspl_grid_features` object.
 features_at.smpspl_grid <-
     function(.tbl, .vars, .var_nest1, .var_nest2, features, ...) {
         .vars <- rlang::enquos(.vars)

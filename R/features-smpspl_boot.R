@@ -2,8 +2,28 @@
 #'
 #' @inheritParams fabletools::features
 #' @param .var The variable to compute features on.
-#' @rdname features_smpspl
 #' @export
+#' @return An `smpspl_boot_features` object.
+#' @examples
+#' library(fable)
+#' library(smpspl)
+#' data <-
+#'     tsibble::tsibble(x = rnorm(100), date = Sys.Date() + 0:99, index = date)
+#' # Consider an AR(1) model
+#' o <-
+#'     ARIMA(x ~ pdq(1, 0, 0) + PDQ(0, 0, 0)) |>
+#'     smpspl_boot(data, 50, 100, 100)
+#'
+#' # Calculate lanyard features
+#' my_acf <-
+#'     function(x) {
+#'         data.frame(t = x, e = 0) |>
+#'             lanyard::acf_metric(t, e) |>
+#'             generics::tidy()
+#'     }
+#'
+#' o |>
+#'     features(.resid, features = my_acf)
 features.smpspl_boot <-
     function(.tbl, .var, features, ...) {
         if (!rlang::is_installed("fabletools")) {
@@ -25,7 +45,6 @@ features.smpspl_boot <-
             rlang::abort("Suggested package `tsibble` is not installed.")
         }
         boot_id <- rlang::sym("boot_id")
-        .resid <- rlang::sym(".resid")
         idx <- tsibble::index(.tbl)
         data_list <-
             .tbl |>
@@ -40,7 +59,7 @@ features.smpspl_boot <-
                     p()
                     fabletools::features(
                         tsibble::as_tsibble(.x, index = idx),
-                        .var,
+                        !!rlang::enquo(.var),
                         features = features
                     )
                 }
