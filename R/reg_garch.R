@@ -68,6 +68,7 @@ train_garch <-
             data = y,
             trace = FALSE,
             include.mean = FALSE,
+            cond.dist = "QMLE",
             ...
         )
     }
