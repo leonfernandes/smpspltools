@@ -27,6 +27,7 @@ An \code{smpspl_grid_features} object.
 Features for sample splitting
 }
 \examples{
+\dontrun{
 library(fable)
 library(smpspl)
 data <-
@@ -46,4 +47,5 @@ my_acf <-
 
 o |>
     features(.resid, .subresid, .assessment, features = my_acf)
+}
 }

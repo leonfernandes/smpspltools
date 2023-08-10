@@ -22,6 +22,7 @@ An \code{smpspl_boot_features} object.
 Features for sample splitting
 }
 \examples{
+\dontrun{
 library(fable)
 library(smpspl)
 data <-
@@ -41,4 +42,5 @@ my_acf <-
 
 o |>
     features(.resid, features = my_acf)
+}
 }

@@ -10,6 +10,7 @@
 #' @export
 #' @returns An `smpspl_grid_features` object.
 #' @examples
+#' \dontrun{
 #' library(fable)
 #' library(smpspl)
 #' data <-
@@ -29,6 +30,7 @@
 #'
 #' o |>
 #'     features(.resid, .subresid, .assessment, features = my_acf)
+#' }
 features.smpspl_grid <-
     function(.tbl, .var, .var_nest1, .var_nest2, features, ...) {
         .var <- rlang::enquo(.var)

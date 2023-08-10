@@ -5,6 +5,7 @@
 #' @export
 #' @return An `smpspl_boot_features` object.
 #' @examples
+#' \dontrun{
 #' library(fable)
 #' library(smpspl)
 #' data <-
@@ -24,6 +25,7 @@
 #'
 #' o |>
 #'     features(.resid, features = my_acf)
+#' }
 features.smpspl_boot <-
     function(.tbl, .var, features, ...) {
         if (!rlang::is_installed("fabletools")) {
