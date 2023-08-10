@@ -1,6 +1,6 @@
 Package: smpspltools
 Title: Tools for smpspl Package
-Version: 0.0.1.9012
+Version: 0.0.1.9013
 Authors@R: 
     person(
         "Leon", "Fernandes", , "leon.fernandes@columbia.edu",
@@ -34,6 +34,7 @@ Suggests:
     workflows (>= 1.1.3)
 Config/testthat/edition: 3
 Imports: 
+    carrier (>= 0.1.1),
     fabletools (>= 0.3.3),
     furrr (>= 0.3.1),
     glue (>= 1.6.2),

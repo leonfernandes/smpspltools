@@ -4,12 +4,15 @@
 \alias{smpspl_list}
 \title{Sample Split Wrapper for a List of Models}
 \usage{
-smpspl_list(model_list, fun, ...)
+smpspl_list(model_list, fun, .options = furrr::furrr_options(), ...)
 }
 \arguments{
 \item{model_list}{list of models to be fit.}
 
 \item{fun}{a \link[smpspl:smpspl-package]{smpspl} function to be applied.}
+
+\item{.options}{The \code{future} specific options to use with the workers. This
+must be the result from a call to \code{\link[furrr:furrr_options]{furrr_options()}}.}
 
 \item{...}{parameters other than "object" of \code{fun}.}
 }
