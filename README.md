@@ -11,7 +11,8 @@ status](https://www.r-pkg.org/badges/version/smpspltools)](https://CRAN.R-projec
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of smpspltools is to …
+The `smpspltools` package provides various helper functions for *smpspl*
+and related packages.
 
 ## Installation
 
@@ -21,13 +22,4 @@ You can install the development version of smpspltools from
 ``` r
 # install.packages("devtools")
 devtools::install_github("leonfernandes/smpspltools")
-```
-
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-``` r
-library(smpspltools)
-## basic example code
 ```
