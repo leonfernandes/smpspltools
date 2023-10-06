@@ -1,6 +1,6 @@
 Package: smpspltools
 Title: Tools for smpspl Package
-Version: 0.0.2.9000
+Version: 0.0.2.9001
 Authors@R: 
     person(
         "Leon", "Fernandes", , "leon.fernandes@columbia.edu",
