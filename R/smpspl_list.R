@@ -19,13 +19,14 @@ smpspl_list <-
             }
         my_crt <-
             carrier::crate(
-                ~ tibble::tibble(fun = my_fun(.x))
+                ~ try(tibble::tibble(fun = my_fun(.x)))
             )
         ret <-
             model_list |>
             furrr::future_map(my_crt, .options = .options)
         ret <-
             ret |>
+            purrr::discard(~ inherits(.x, "try-error")) |>
             purrr::list_rbind(names_to = "model_id") |>
             dplyr::mutate(model_id = factor(model_id)) |>
             tibble::new_tibble(class = "smpspl_list")
