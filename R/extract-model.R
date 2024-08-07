@@ -1,8 +1,8 @@
 #' Extracts available models
 #'
 #' Generic function to extract and return objects that have been registered with
-#' this package. For now only `arima` and `garch` objects are registered. This
-#' function translates functions of class `Arima`, `Arima_fit_impl`, `AR`,
+#' `simults` package. For now only `arima` and `garch` objects are registered.
+#' This function translates functions of class `Arima`, `Arima_fit_impl`, `AR`,
 #' `ARIMA` and `fGARCH` to the corresponding registered methods. This function
 #' also extracts the fitted models from `model_fit`, `workflow` and `mdl_ts`
 #' objects.
@@ -63,7 +63,7 @@ extract_model.ARIMA <- function(object, ...) extract_model(object$model, ...)
 #' @rdname extract_model
 #' @export
 extract_model.AR <-
-    function(object, ...) make_arima(phi = object$coef, theta = 0, delta = 0)
+    function(object, ...) simults::make_arima(phi = object$coef, theta = 0, delta = 0)
 
 ## garch ----
 #' @rdname extract_model
@@ -77,5 +77,5 @@ extract_model.fGARCH <- function(object, ...) {
     par_list <-
         c(omega = "omega", alpha = "alpha", beta = "beta") |>
         lapply(function(.) subset_from_name(par, .))
-    do.call(make_garch, par_list)
+    do.call(simults::make_garch, par_list)
 }

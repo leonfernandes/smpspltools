@@ -46,8 +46,8 @@ extract_model(object, ...)
 }
 \description{
 Generic function to extract and return objects that have been registered with
-this package. For now only \code{arima} and \code{garch} objects are registered. This
-function translates functions of class \code{Arima}, \code{Arima_fit_impl}, \code{AR},
+\code{simults} package. For now only \code{arima} and \code{garch} objects are registered.
+This function translates functions of class \code{Arima}, \code{Arima_fit_impl}, \code{AR},
 \code{ARIMA} and \code{fGARCH} to the corresponding registered methods. This function
 also extracts the fitted models from \code{model_fit}, \code{workflow} and \code{mdl_ts}
 objects.
